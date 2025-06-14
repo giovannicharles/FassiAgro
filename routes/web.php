@@ -4,7 +4,7 @@ use App\Http\Controllers\DemandeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashAdmin;
 use App\Http\Controllers\DashProducteur;
 use App\Http\Controllers\DashAcheteur;
@@ -57,14 +57,12 @@ Route::middleware(['auth'])->group(function(){
 
 // ____________________ POUR LE CHATBOT ____________________________
 // routes/web.php
-Route::post('/chatbot', [\App\Http\Controllers\ChatbotController::class, 'ask'])->name('chatbot');
+Route::get('/chat', [ChatController::class, 'index'])->name('chat');
+Route::post('/chat', [ChatController::class, 'chat'])->name('chat.send');
 
 
-Route::get('/chatbot1', function () {
-    return view('chatbot');
-});
-// Route::post('/chatbot', [ChatbotController::class, 'handle']);
 
 // __________ pour contrat ___________
 Route::get('/contrat',[DashAcheteur::class,'showContrat'])->name('acheteur.contrat');
 Route::get('/profil',[DashAcheteur::class,'showProfil'])->name('acheteur.profil');
+
